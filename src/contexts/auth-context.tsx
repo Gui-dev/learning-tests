@@ -28,17 +28,15 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const login = useCallback(async (email: string, password: string) => {
     setLoading(true)
     setError(null)
-    try {
-      await new Promise(response => setTimeout(response, 500))
+    await new Promise(response => setTimeout(response, 500))
 
-      if (email === 'test@example.com' && password === '123456') {
-        setUser({ email })
-      }
-    } catch {
+    if (email === 'test@example.com' && password === '123456') {
+      setUser({ email })
+    } else {
       setError('Credentials do not match')
-    } finally {
-      setLoading(false)
     }
+
+    setLoading(false)
   }, [])
 
   const logout = () => {

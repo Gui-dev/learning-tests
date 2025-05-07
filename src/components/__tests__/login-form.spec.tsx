@@ -75,4 +75,32 @@ describe('<LoginForm />', () => {
       ).toBeInTheDocument()
     })
   })
+
+  it('should be able show button disabled when loading', async () => {
+    render(
+      <AuthProvider>
+        <LoginForm />
+      </AuthProvider>
+    )
+
+    const emailInput = screen.getByPlaceholderText(/email/i)
+    const passwordInput = screen.getByPlaceholderText(/senha/i)
+    const button = screen.getByRole('button', { name: /entrar/i })
+
+    fireEvent.change(emailInput, {
+      target: { value: 'test@example.com' },
+    })
+
+    fireEvent.change(passwordInput, {
+      target: { value: '123456' },
+    })
+
+    fireEvent.click(button)
+
+    expect(button).toBeDisabled()
+
+    await waitFor(() => {
+      expect(screen.getByText(/bem-vindo/i)).toBeInTheDocument()
+    })
+  })
 })

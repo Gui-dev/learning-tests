@@ -15,6 +15,8 @@ export const LoginForm = () => {
     return <p>Bem-vindo, {user.email}</p>
   }
 
+  console.log('LOADING: ', loading)
+
   return (
     <form onSubmit={handleSubmit}>
       <input
