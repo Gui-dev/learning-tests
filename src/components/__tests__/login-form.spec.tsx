@@ -103,4 +103,36 @@ describe('<LoginForm />', () => {
       expect(screen.getByText(/bem-vindo/i)).toBeInTheDocument()
     })
   })
+
+  it('should be able login and logout correctly', async () => {
+    render(
+      <AuthProvider>
+        <LoginForm />
+      </AuthProvider>
+    )
+
+    fireEvent.change(screen.getByPlaceholderText(/email/i), {
+      target: { value: 'test@example.com' },
+    })
+
+    fireEvent.change(screen.getByPlaceholderText(/senha/i), {
+      target: { value: '123456' },
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: /entrar/i }))
+
+    await waitFor(() => {
+      expect(screen.getByText(/Bem-vindo/i)).toBeInTheDocument()
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: /sair/i }))
+
+    await waitFor(() => {
+      expect(screen.queryByText(/Bem-vindo/i)).not.toBeInTheDocument()
+      expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: /entrar/i })
+      ).toBeInTheDocument()
+    })
+  })
 })

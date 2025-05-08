@@ -2,7 +2,7 @@ import { type FormEvent, useState } from 'react'
 import { useAuth } from '../hooks/use-auth'
 
 export const LoginForm = () => {
-  const { login, loading, error, user } = useAuth()
+  const { login, loading, logout, error, user } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -11,8 +11,19 @@ export const LoginForm = () => {
     login(email, password)
   }
 
+  const handleLogout = () => {
+    logout()
+  }
+
   if (user) {
-    return <p>Bem-vindo, {user.email}</p>
+    return (
+      <>
+        <p>Bem-vindo, {user.email}</p>
+        <button type="button" onClick={handleLogout}>
+          Sair
+        </button>
+      </>
+    )
   }
 
   console.log('LOADING: ', loading)
