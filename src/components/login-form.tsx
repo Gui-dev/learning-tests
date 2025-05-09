@@ -26,7 +26,7 @@ export const LoginForm = () => {
     )
   }
 
-  console.log('LOADING: ', loading)
+  console.log('ERROR: ', error)
 
   return (
     <form onSubmit={handleSubmit}>
