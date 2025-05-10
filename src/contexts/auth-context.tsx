@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const login = useCallback(async (email: string, password: string) => {
     setLoading(true)
     setError(null)
+
     await new Promise(response => setTimeout(response, 500))
 
     if (email === 'test@example.com' && password === '123456') {

@@ -1,8 +1,10 @@
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useEffect, useState } from 'react'
 import { useAuth } from '../hooks/use-auth'
+import { useNavigate } from 'react-router-dom'
 
 export const LoginForm = () => {
-  const { login, loading, logout, error, user } = useAuth()
+  const { login, loading, error, user } = useAuth()
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -11,22 +13,11 @@ export const LoginForm = () => {
     login(email, password)
   }
 
-  const handleLogout = () => {
-    logout()
-  }
-
-  if (user) {
-    return (
-      <>
-        <p>Bem-vindo, {user.email}</p>
-        <button type="button" onClick={handleLogout}>
-          Sair
-        </button>
-      </>
-    )
-  }
-
-  console.log('ERROR: ', error)
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard')
+    }
+  }, [user, navigate])
 
   return (
     <form onSubmit={handleSubmit}>
