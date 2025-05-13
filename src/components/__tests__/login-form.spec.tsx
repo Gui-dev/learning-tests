@@ -1,8 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 import { LoginForm } from '../login-form'
 import { AuthContext } from '../../contexts/auth-context'
-import { fireEvent, render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { Dashboard } from '../../pages/dashboard'
 
 describe('<LoginForm />', () => {
   const loginMock = vi.fn()
@@ -61,5 +62,34 @@ describe('<LoginForm />', () => {
     expect(screen.getByRole('alert')).toHaveTextContent(
       'Credentials do not match'
     )
+  })
+
+  it('should not be able render form if user already logged in', async () => {
+    const mockedUser = { email: 'test@example.com' }
+
+    render(
+      <AuthContext.Provider
+        value={{
+          user: mockedUser,
+          login: vi.fn(),
+          logout: vi.fn(),
+          loading: false,
+          error: null,
+        }}
+      >
+        <MemoryRouter>
+          <Routes>
+            <Route path="/" element={<LoginForm />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </MemoryRouter>
+      </AuthContext.Provider>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByText(/bem-vindo/i)).toBeInTheDocument()
+    })
+
+    expect(screen.queryByPlaceholderText(/email/i)).not.toBeInTheDocument()
   })
 })
