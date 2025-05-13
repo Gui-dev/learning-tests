@@ -48,4 +48,10 @@ describe('<LoginForm />', () => {
 
     expect(loginMock).toHaveBeenCalledWith('test@example.com', '123456')
   })
+
+  it('should be able disables button when loading is true', async () => {
+    renderForm({ loading: true })
+
+    expect(screen.getByRole('button', { name: /carregando/i })).toBeDisabled()
+  })
 })
