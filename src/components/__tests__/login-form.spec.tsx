@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { LoginForm } from '../login-form'
-import { AuthContext, AuthProvider } from '../../contexts/auth-context'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { AuthContext } from '../../contexts/auth-context'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 describe('<LoginForm />', () => {
@@ -31,5 +31,21 @@ describe('<LoginForm />', () => {
     expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument()
     expect(screen.getByPlaceholderText(/senha/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /entrar/i })).toBeInTheDocument()
+  })
+
+  it('should be able calls login function on form submit', async () => {
+    renderForm()
+
+    fireEvent.change(screen.getByPlaceholderText(/email/i), {
+      target: { value: 'test@example.com' },
+    })
+
+    fireEvent.change(screen.getByPlaceholderText(/senha/i), {
+      target: { value: '123456' },
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: /entrar/i }))
+
+    expect(loginMock).toHaveBeenCalledWith('test@example.com', '123456')
   })
 })
