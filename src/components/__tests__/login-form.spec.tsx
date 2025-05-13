@@ -54,4 +54,12 @@ describe('<LoginForm />', () => {
 
     expect(screen.getByRole('button', { name: /carregando/i })).toBeDisabled()
   })
+
+  it('should be able show erro message if login fails', () => {
+    renderForm({ error: 'Credentials do not match' })
+
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'Credentials do not match'
+    )
+  })
 })
