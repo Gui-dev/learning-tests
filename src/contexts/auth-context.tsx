@@ -1,6 +1,6 @@
 import { createContext, useCallback, useState } from 'react'
 
-interface IUserProps {
+export interface IUserProps {
   email: string
 }
 
