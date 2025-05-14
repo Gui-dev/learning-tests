@@ -7,7 +7,10 @@ import { Dashboard } from '../../pages/dashboard'
 import { LoginForm } from '../login-form'
 
 describe('<PrivateRoute />', () => {
-  const renderWithAuth = (user: IUserProps, initialRoute = '/dashboard') => {
+  const renderWithAuth = (
+    user: IUserProps | null,
+    initialRoute = '/dashboard'
+  ) => {
     return render(
       <AuthContext.Provider
         value={{
@@ -41,5 +44,11 @@ describe('<PrivateRoute />', () => {
     expect(
       screen.getByRole('heading', { name: /dashboard/i })
     ).toBeInTheDocument()
+  })
+
+  it('should redirect to login if user is not authenticated', () => {
+    renderWithAuth(null)
+
+    expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument()
   })
 })
