@@ -5,6 +5,10 @@ Este projeto é um estudo prático com foco em **testes automatizados** em aplic
 
 ---
 
+<p align="center">
+  <img alt="React Testing Project" src="./.screens/home.png" width="100%">
+</p>
+
 ## 🚀 Tecnologias utilizadas
 
 - [React](https://reactjs.org/) (Vite)
@@ -63,13 +67,10 @@ Utilizamos o Playwright para validar o comportamento da aplicação como um todo
 
 ## 📌 Requisitos para rodar os testes
 
-    Node.js 18+
-
-    Navegadores instalados com: npx playwright install
-
-    Ambiente local ativo servindo a aplicação (npm run dev)
-
-    Dependências instaladas com npm install
+- Node.js 18+
+- Navegadores instalados com: npx playwright install
+- Ambiente local ativo servindo a aplicação (npm run dev)
+- Dependências instaladas com npm install
 
 
 ## 🧠 Conclusão
@@ -86,22 +87,33 @@ quanto o fluxo completo de autenticação, com redirecionamentos e interações 
 
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo
+git clone https://github.com/seu-usuario/learning-tests.git
+
+cd learning-tests
+
 npm install
+```
+
+```bash
 
 # Executar testes unitários
 npm run test
+```
+
+```bash
 
 # Instalar Playwright e navegadores
 npx playwright install
+```
 
+```bash
 # Rodar os testes E2E
 npx playwright test
+```
 
+```bash
 # Abrir o modo UI (para debugging visual)
 npx playwright test --ui
-
 ```
 
 
