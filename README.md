@@ -17,7 +17,6 @@ Este projeto é um estudo prático com foco em **testes automatizados** em aplic
 - [Vitest](https://vitest.dev/) – Framework de testes unitários
 - [Testing Library (React)](https://testing-library.com/docs/react-testing-library/intro/) – Testes de componentes
 - [Playwright](https://playwright.dev/) – Testes E2E (End-to-End)
-- [MSW (Mock Service Worker)](https://mswjs.io/) *(opcional, mas recomendado)* – Mock de APIs
 
 ---
 
