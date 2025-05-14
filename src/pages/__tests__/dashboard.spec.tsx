@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { AuthContext } from '../../contexts/auth-context'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
@@ -42,5 +42,15 @@ describe('<Dashboard />', () => {
     ).toBeInTheDocument()
     expect(screen.getByText(/bem-vindo/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /sair/i })).toBeInTheDocument()
+  })
+
+  it('should call logout when clicking on button', async () => {
+    const { context } = renderWithRouter()
+
+    fireEvent.click(screen.getByRole('button', { name: /sair/i }))
+
+    await waitFor(() => {
+      expect(context.logout).toHaveBeenCalled()
+    })
   })
 })
