@@ -87,7 +87,7 @@ quanto o fluxo completo de autenticação, com redirecionamentos e interações 
 
 
 ```bash
-git clone https://github.com/seu-usuario/learning-tests.git
+git clone https://github.com/Gui-dev/learning-tests.git
 
 cd learning-tests
 
