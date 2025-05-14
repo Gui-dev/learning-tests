@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { AuthContext } from '../../contexts/auth-context'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { Dashboard } from '../dashboard'
+import { LoginForm } from '../../components/login-form'
 
 describe('<Dashboard />', () => {
   const mockedUser = { email: 'test@example.com' }
@@ -51,6 +52,31 @@ describe('<Dashboard />', () => {
 
     await waitFor(() => {
       expect(context.logout).toHaveBeenCalled()
+    })
+  })
+
+  it('should redirect to login if user is not authenticated', async () => {
+    render(
+      <AuthContext.Provider
+        value={{
+          user: null,
+          login: vi.fn(),
+          logout: vi.fn(),
+          loading: false,
+          error: null,
+        }}
+      >
+        <MemoryRouter initialEntries={['/dashboard']}>
+          <Routes>
+            <Route path="/" element={<LoginForm />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </MemoryRouter>
+      </AuthContext.Provider>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument()
     })
   })
 })
