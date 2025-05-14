@@ -1,7 +1,20 @@
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/use-auth'
+import { useEffect } from 'react'
 
 export const Dashboard = () => {
+  const navigate = useNavigate()
   const { logout, user } = useAuth()
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/')
+    }
+  }, [user, navigate])
+
+  if (!user) {
+    return <p>Carregando...</p>
+  }
 
   return (
     <>

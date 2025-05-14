@@ -87,7 +87,7 @@ describe('<LoginForm />', () => {
     )
 
     await waitFor(() => {
-      expect(screen.getByText(/bem-vindo/i)).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: /dashboard/i })).toBeInTheDocument()
     })
 
     expect(screen.queryByPlaceholderText(/email/i)).not.toBeInTheDocument()
